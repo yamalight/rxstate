@@ -15,7 +15,7 @@ export const createStore = ({streams, defaultState, combinator = defaultCombinat
     clear.$.map(() => immutableState).subscribe(subj);
     // plug in user actions
     streams.map(s$ => s$
-        .map(fromJS)
+        .map(val => fromJS(val))
         .subscribe(subj)
     );
 

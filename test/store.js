@@ -104,4 +104,28 @@ test('Store', (it) => {
         // trigger action
         testAction();
     });
+
+    it.test('# should allow triggering action multiple times', (t) => {
+        // create test action
+        const testAction = createAction();
+        const test$ = testAction.$.map(() => ({test: true}));
+        // create store
+        const store = createStore({streams: [test$], defaultState: {init: true}});
+        // subscribe for initial state
+        store.take(1).subscribe(state => t.ok(state.get('init')));
+        // subscribe for updated state
+        store.skip(1).subscribe(state => {
+            t.ok(state.get('init'));
+            t.ok(state.get('test'));
+        });
+        store.skip(3).subscribe(state => {
+            t.ok(state.get('init'));
+            t.ok(state.get('test'));
+            t.end();
+        });
+        // trigger action
+        testAction();
+        testAction();
+        testAction();
+    });
 });
