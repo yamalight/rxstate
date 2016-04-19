@@ -1,6 +1,6 @@
 {
   "name": "rxstate",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Simple opinionated state management library based on RxJS and Immutable.js",
   "main": "es5/component.js",
   "es6": "index.js",
