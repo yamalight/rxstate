@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "object-curly-spacing": ["warn", "never"],
+    "indent": ["error", 4],
+    "func-names": "off",
+    "space-before-function-paren": ["error", "never"],
+    "max-len": ["error", 120, 4],
+    "react/jsx-indent-props": ["error", 4],
+    "react/prefer-es6-class": "off",
+    "react/prop-types": "off"
+  }
+}

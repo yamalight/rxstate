@@ -1,0 +1,46 @@
+{
+  "name": "rxstate",
+  "version": "0.1.0",
+  "description": "Simple opinionated state management library based on RxJS and Immutable.js",
+  "main": "es5/component.js",
+  "es6": "index.js",
+  "scripts": {
+    "test": "babel-node ./node_modules/tape/bin/tape ./test | tap-dot",
+    "test-tape": "babel-node ./node_modules/tape/bin/tape ./test",
+    "build": "webpack",
+    "cover": "babel-node ./node_modules/istanbul/lib/cli cover ./node_modules/tape/bin/tape ./test",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "rx",
+    "rxjs",
+    "immutable",
+    "state",
+    "store"
+  ],
+  "author": "Tim Ermilov <yamalight@gmail.com> (http://codezen.net)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yamalight/rxstate"
+  },
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-1"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.7.6",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "istanbul": "^1.0.0-alpha.2",
+    "tape": "^4.5.1",
+    "webpack": "^1.13.0"
+  },
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "rx": "^4.1.0"
+  }
+}
