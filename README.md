@@ -57,6 +57,7 @@ getTypeahead('keyword');
 ## Things to keep in mind
 
 - Rxstate will convert all the data into [Immutable.js](https://facebook.github.io/immutable-js/) objects.
+- Store will always return last value to new subscribers.
 - By default, the state is updated using Immutable `.merge()` method (e.g. [Map.merge()](https://facebook.github.io/immutable-js/docs/#/Map/merge)). You can change that by passing `combinator` parameter during store creation, e.g.:
 ```js
 // create combinator that always returns new state

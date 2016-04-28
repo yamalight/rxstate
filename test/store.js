@@ -128,4 +128,38 @@ test('Store', (it) => {
         testAction();
         testAction();
     });
+
+    it.test('# should return only last state to new subscriber', (t) => {
+        // create test action
+        const testAction = createAction();
+        const test$ = testAction.$.map(() => ({test: true}));
+        // create other test action
+        const otherAction = createAction();
+        const other$ = otherAction.$.map(() => ({other: true}));
+        // create store
+        const store = createStore({streams: [test$, other$], defaultState: {init: true}});
+        // subscribe for initial state
+        store.take(1).subscribe(state => t.ok(state.get('init')));
+        // subscribe for updated state
+        store.skip(1).subscribe(state => {
+            t.ok(state.get('init'));
+            t.ok(state.get('test'));
+        });
+        // subscribe for updated state
+        store.skip(2).subscribe(state => {
+            t.ok(state.get('init'));
+            t.ok(state.get('test'));
+            t.ok(state.get('other'));
+        });
+        // trigger actions
+        testAction();
+        otherAction();
+        // subscribe once more
+        store.subscribe(state => {
+            t.ok(state.get('init'));
+            t.ok(state.get('test'));
+            t.ok(state.get('other'));
+            t.end();
+        });
+    });
 });
