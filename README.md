@@ -71,7 +71,7 @@ const store = createStore({streams, defaultState, combinator});
 const status = createStatus('customStatus');
 // state will be updated with {customStatus: 'statusText'}
 ```
-- Stores have `.clear()` method that dispatches new action with default state as value. If you use default combinator logic - this will reset your state to initial one.
+- Stores have `.clear()` method that accepts new initial state as an optional argument and dispatches new action with either provided or default state as value. If you use default combinator logic - this will reset your state to initial one.
 
 ## License
 
