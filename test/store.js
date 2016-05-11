@@ -105,6 +105,42 @@ test('Store', (it) => {
         testAction();
     });
 
+    it.test('# should update store status with custom name', (t) => {
+        // create status
+        const status = createStatus('customStatus');
+        // create test action
+        const testAction = createAction();
+        const test$ = testAction.$
+            .do(() => status('loading'))
+            .flatMap(() => Observable.timer(200).map(() => ({test: true})))
+            .do(() => status('done'));
+        // create store
+        const store = createStore({streams: [test$, status.$], defaultState: {init: true}});
+        // subscribe for initial state
+        store.take(1).subscribe(state => t.ok(state.get('init')));
+        // subscribe for 'loading' state
+        store.skip(1).take(1).subscribe(state => {
+            t.ok(state.get('init'));
+            t.notOk(state.get('test'));
+            t.equal(state.get('customStatus'), 'loading');
+        });
+        // subscribe for result state
+        store.skip(2).take(1).subscribe(state => {
+            t.ok(state.get('init'));
+            t.notOk(state.get('test'));
+            t.equal(state.get('customStatus'), 'done');
+        });
+        // subscribe for final state
+        store.skip(3).take(1).subscribe(state => {
+            t.ok(state.get('init'));
+            t.ok(state.get('test'));
+            t.equal(state.get('customStatus'), 'done');
+            t.end();
+        });
+        // trigger action
+        testAction();
+    });
+
     it.test('# should allow triggering action multiple times', (t) => {
         // create test action
         const testAction = createAction();
@@ -161,5 +197,33 @@ test('Store', (it) => {
             t.ok(state.get('other'));
             t.end();
         });
+    });
+
+    it.test('# should clear store with custom clear state', (t) => {
+        // create test action
+        const testAction = createAction();
+        const test$ = testAction.$.map(() => ({test: true}));
+        // create store
+        const store = createStore({streams: [test$], defaultState: {init: true, test: false}});
+        // subscribe for initial state
+        store.take(1).subscribe(state => {
+            t.ok(state.get('init'));
+            t.notOk(state.get('test'));
+        });
+        // subscribe for updated state
+        store.skip(1).take(1).subscribe(state => {
+            t.ok(state.get('init'));
+            t.ok(state.get('test'));
+            // trigger clear
+            store.clear({init: false, test: true});
+        });
+        // subscribe for clear update
+        store.skip(2).subscribe(state => {
+            t.notOk(state.get('init'));
+            t.ok(state.get('test'));
+            t.end();
+        });
+        // trigger action
+        testAction();
     });
 });

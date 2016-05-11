@@ -12,7 +12,7 @@ export const createStore = ({streams, defaultState, combinator = defaultCombinat
 
     // create clean action
     const clear = createAction();
-    clear.$.map(() => immutableState).subscribe(subj);
+    clear.$.map(newData => (newData ? fromJS(newData) : immutableState)).subscribe(subj);
     // plug in user actions
     streams.map(s$ => s$
         .map(val => fromJS(val))
