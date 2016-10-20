@@ -1,5 +1,5 @@
 import test from 'tape';
-import {Observable} from 'rx';
+import {Observable} from 'rxjs/Rx';
 import {createAction, createStore, createStatus} from '../index';
 
 test('Store', (it) => {
