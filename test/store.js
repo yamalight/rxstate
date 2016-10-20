@@ -57,7 +57,7 @@ test('Store', (it) => {
             t.ok(state.get('init'));
             t.ok(state.get('test'));
             // trigger clear
-            store.clear();
+            setImmediate(() => store.clear());
         });
         // subscribe for clear update
         store.skip(2).subscribe(state => {
@@ -215,7 +215,7 @@ test('Store', (it) => {
             t.ok(state.get('init'));
             t.ok(state.get('test'));
             // trigger clear
-            store.clear({init: false, test: true});
+            setImmediate(() => store.clear({init: false, test: true}));
         });
         // subscribe for clear update
         store.skip(2).subscribe(state => {
