@@ -1,4 +1,10 @@
 
+1.0.0 / 2016-12-19
+==================
+
+  * Update RxJS to v5
+  * Replace webpack with rollup for simpler build
+
 0.4.0 / 2016-05-11
 ==================
 
