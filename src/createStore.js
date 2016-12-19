@@ -1,4 +1,4 @@
-import {Subject, ReplaySubject} from 'rx';
+import Rx from 'rxjs/Rx';
 import {fromJS} from 'immutable';
 import {createAction} from './createAction';
 
@@ -8,7 +8,7 @@ export const createStore = ({streams, defaultState, combinator = defaultCombinat
     // convert default state to immutable if needed
     const immutableState = fromJS(defaultState);
     // create result store stream
-    const subj = new Subject();
+    const subj = new Rx.Subject();
 
     // create clean action
     const clear = createAction();
@@ -20,7 +20,7 @@ export const createStore = ({streams, defaultState, combinator = defaultCombinat
     );
 
     // init result stream
-    const store = new ReplaySubject(1);
+    const store = new Rx.ReplaySubject(1);
     // start with default state
     subj.startWith(immutableState)
     // combine results
