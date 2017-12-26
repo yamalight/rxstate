@@ -21,7 +21,7 @@ Example code for creating a store with status and typeahead fetching action is s
 import fetchival from 'fetchival';
 import {Observable} from 'rx';
 import {fromJS} from 'immutable';
-import {createStore, createAction} from 'rxstate';
+import {createStore, createAction, createStatus} from 'rxstate';
 
 // create status action
 const status = createStatus();
