@@ -1,3 +1,9 @@
+# 2.0.0 / 2019-05-06
+
+- Rewrite to use latest RxJS syntax
+- Remove Immutable.js
+- Make RxJS a peer dependency
+
 # 1.0.2 / 2018-10-01
 
 - Update to RxJS v6 with compat package
