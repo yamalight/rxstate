@@ -1,21 +1,18 @@
 {
   "name": "rxstate",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Simple opinionated state management library based on RxJS and Immutable.js",
   "main": "es5/component.js",
   "es6": "index.js",
   "scripts": {
-    "test": "babel-node ./node_modules/tape/bin/tape ./test | tap-dot",
-    "test-tape": "babel-node ./node_modules/tape/bin/tape ./test",
+    "test": "jest --collect-coverage",
     "build": "NODE_ENV=production rollup -c",
-    "cover": "babel-node ./node_modules/istanbul/lib/cli cover ./node_modules/tape/bin/tape ./test",
-    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls",
+    "coveralls": "npm run test && cat ./coverage/lcov.info | coveralls",
     "prepublish": "npm run build"
   },
   "keywords": [
     "rx",
     "rxjs",
-    "immutable",
     "state",
     "store"
   ],
@@ -25,34 +22,28 @@
     "url": "https://github.com/yamalight/rxstate"
   },
   "license": "MIT",
-  "babel": {
-    "env": {
-      "production": {
-        "presets": [
-          "@babel/preset-env"
-        ]
-      },
-      "development": {
-        "presets": [
-          "@babel/preset-env"
-        ]
-      }
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-jest": "^24.8.0",
+    "coveralls": "^3.0.3",
+    "esm": "^3.2.22",
+    "jest": "^24.8.0",
+    "rollup": "^1.11.3",
+    "rollup-plugin-babel": "^4.3.2",
+    "rxjs": "^6.5.1"
+  },
+  "peerDependencies": {
+    "rxjs": "^6.5.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
     }
   },
-  "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/node": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "coveralls": "^3.0.2",
-    "istanbul": "^1.1.0-alpha.1",
-    "rollup": "^0.66.2",
-    "rollup-plugin-babel": "^4.0.3",
-    "tap-dot": "^2.0.0",
-    "tape": "^4.9.1"
-  },
-  "dependencies": {
-    "immutable": "^3.8.2",
-    "rxjs": "^6.3.3",
-    "rxjs-compat": "^6.3.3"
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }

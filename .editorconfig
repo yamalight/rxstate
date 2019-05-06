@@ -3,7 +3,7 @@
 root = true
 
 # all files defaults
-[**]
+[*]
 # Unix-style newlines with a newline ending
 end_of_line = lf
 insert_final_newline = true
@@ -11,7 +11,7 @@ insert_final_newline = true
 charset = utf-8
 # 4 space indentation
 indent_style = space
-indent_size = 4
+indent_size = 2
 # trim whitespaces
 trim_trailing_whitespace = true
 # always insert final newline
@@ -20,29 +20,11 @@ insert_final_newline = true
 [*.md]
 trim_trailing_whitespace = false
 
-# 2 spaces indent for config files
-[*.json]
-indent_style = space
+# tab for makefiles
+[{Makefile, Makefile*, *.xml}]
+indent_style = tab
 indent_size = 2
 
-[*.yml]
-indent_style = space
-indent_size = 2
-
-[*.sql]
-indent_style = space
-indent_size = 2
-
-# 2 spaces for clojure
-[*.clj]
-indent_style = space
-indent_size = 2
-
-# tabs 4 spaces for makefiles
-[Makefile*]
-indent_style = tabs
-indent_size = 4
-
-[*.java]
-indent_style = tabs
+[{*.java, *.go}]
+indent_style = tab
 indent_size = 4

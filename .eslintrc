@@ -1,14 +1,23 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["standard", "standard-react", "prettier"],
+  "plugins": ["prettier", "react"],
   "rules": {
-    "object-curly-spacing": ["warn", "never"],
-    "indent": ["error", 4],
-    "func-names": "off",
-    "space-before-function-paren": ["error", "never"],
     "max-len": ["error", 120, 4],
-    "react/jsx-indent-props": ["error", 4],
-    "react/prefer-es6-class": "off",
-    "react/prop-types": "off"
+    "camelcase": "off",
+    "react/prop-types": "warn",
+    "react/react-in-jsx-scope": "off",
+    "promise/param-names": "off",
+    "prefer-promise-reject-errors": "off",
+    "no-control-regex": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "bracketSpacing": false,
+        "printWidth": 120
+      }
+    ]
   }
 }

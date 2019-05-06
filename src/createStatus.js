@@ -1,9 +1,9 @@
+import {map} from 'rxjs/operators';
 import {createAction} from './createAction';
-import {fromJS} from 'immutable';
 
 // create status action
 export const createStatus = (statusKey = 'status') => {
-    const status = createAction();
-    status.$ = status.$.map(s => fromJS({[statusKey]: s}));
-    return status;
+  const status = createAction();
+  status.$ = status.$.pipe(map(s => ({[statusKey]: s})));
+  return status;
 };

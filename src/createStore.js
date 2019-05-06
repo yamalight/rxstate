@@ -1,32 +1,33 @@
-import {Subject, ReplaySubject} from 'rxjs/Rx';
-import {fromJS} from 'immutable';
+import {Subject, ReplaySubject} from 'rxjs';
+import {map, startWith, scan} from 'rxjs/operators';
 import {createAction} from './createAction';
 
-const defaultCombinator = (state, data) => state.merge(data);
+const defaultCombinator = (state, data) => ({...state, ...data});
 
 export const createStore = ({streams, defaultState, combinator = defaultCombinator}) => {
-    // convert default state to immutable if needed
-    const immutableState = fromJS(defaultState);
-    // create result store stream
-    const subj = new Subject();
+  // create result store stream
+  const subj = new Subject();
 
-    // create clean action
-    const clear = createAction();
-    clear.$.map(newData => (newData ? fromJS(newData) : immutableState)).subscribe(subj);
-    // plug in user actions
-    streams.map(s$ => s$.map(val => fromJS(val)).subscribe(subj));
+  // create clean action
+  const clear = createAction();
+  clear.$.pipe(map(newData => (newData ? {...newData} : {...defaultState}))).subscribe(subj);
+  // plug in user actions
+  streams.map(s$ => s$.subscribe(subj));
 
-    // init result stream
-    const store = new ReplaySubject(1);
-    // start with default state
-    subj.startWith(immutableState)
-        // combine results
-        .scan(combinator)
-        // push result to final stream
-        .subscribe(store);
+  // init result stream
+  const store = new ReplaySubject(1);
+  // start with default state
+  subj
+    .pipe(
+      startWith({...defaultState}),
+      // combine results
+      scan(combinator)
+    )
+    // push result to final stream
+    .subscribe(store);
 
-    // append clear method
-    store.clear = clear;
+  // append clear method
+  store.clear = clear;
 
-    return store;
+  return store;
 };
